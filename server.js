@@ -27,6 +27,11 @@ webApp.get('/', function(req, res) {
 });
 
 webApp.post('/email', function(req, res) {
+    if (!req.body || !req.body.destination_email){
+        console.log('received a bad request');
+        res.sendStatus(400);
+        return;
+    }
     var postedData = req.body;
     transporter.sendMail({
             from: 'roddairon@gmail.com',
@@ -53,8 +58,8 @@ webApp.post('/send-resume', function(req, res) {
             return;
         }
         transporter.sendMail({
-                from: 'roddairon@gmail.com',
-                to: 'drodriguez@fvi.edu',
+
+                to: req.body.destination_email,
                 subject: 'this is a test send email',
                 html: contents
             },
@@ -70,6 +75,18 @@ webApp.post('/send-resume', function(req, res) {
 
 
 });
+
+
+webApp.get('/send-resume',function(req,res){
+    fs.readFile('./resume-emailer.html',function(err,contents){
+        res.end(contents);
+    })
+});
+
+
+
+
+
 
 webApp.listen(8967);
 console.log('server listening');

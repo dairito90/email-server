@@ -18,6 +18,7 @@
   "homepage": "https://github.com/dairito90/email-server#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
     "express": "^4.14.1",
     "nodemailer": "^3.0.0"
   },
